@@ -5,6 +5,8 @@ export const appetiteLevelStyles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  lightBg: {
     backgroundColor: "#FFF3CD",
   },
   title: {
@@ -31,7 +33,6 @@ export const appetiteLevelStyles = StyleSheet.create({
     alignItems: "center",
   },
   buttonText: {
-    color: "#FFF",
     fontSize: 18,
     fontWeight: "bold",
   },

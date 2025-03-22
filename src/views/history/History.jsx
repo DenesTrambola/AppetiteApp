@@ -1,10 +1,10 @@
 import { View, Text, FlatList } from "react-native";
 import { useContext, useEffect } from "react";
 import { AppetiteContext } from "../../context/AppetiteContext";
-import { historyStyles } from "../../styles";
+import { historyStyles, themesStyles } from "../../styles";
 
 export const History = () => {
-  const { mealHistory, setMealHistory, getMealHistory } = useContext(AppetiteContext);
+  const { mealHistory, setMealHistory, getMealHistory, theme } = useContext(AppetiteContext);
 
   useEffect(() => {
     const fetchHistory = async () => setMealHistory(await getMealHistory());
@@ -13,8 +13,8 @@ export const History = () => {
   }, []);
 
   return (
-    <View style={historyStyles.container}>
-      <Text style={historyStyles.title}>Meal History</Text>
+    <View style={[historyStyles.container, theme === "dark" ? themesStyles.darkBg : historyStyles.lightBg]}>
+      <Text style={[historyStyles.title, theme === "dark" ? themesStyles.lightFg : themesStyles.darkFg]}>Meal History</Text>
 
       {mealHistory.length === 0 || mealHistory === null ? (
         <Text style={historyStyles.emptyText}>No history yet.</Text>

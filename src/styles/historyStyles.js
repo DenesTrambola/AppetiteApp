@@ -4,8 +4,10 @@ export const historyStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#E3F2FD",
     padding: 20,
+  },
+  lightBg: {
+    backgroundColor: "#E3F2FD",
   },
   title: {
     fontSize: 22,

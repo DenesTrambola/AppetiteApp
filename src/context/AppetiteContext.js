@@ -1,11 +1,32 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { Appearance } from "react-native";
 
 export const AppetiteContext = createContext();
 
 export const AppetiteProvider = ({ children }) => {
   const [hungerLevel, setHungerLevel] = useState("neutral");
   const [mealHistory, setMealHistory] = useState([]);
+  const [theme, setTheme] = useState(Appearance.getColorScheme() || "light");
+
+  useEffect(() => {
+    const loadTheme = async () => {
+      const storedTheme = await AsyncStorage.getItem("appTheme");
+      if (storedTheme) setTheme(storedTheme);
+    };
+    loadTheme();
+  }, []);
+
+  const toggleTheme = async () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    await AsyncStorage.setItem("appTheme", newTheme);
+  };
+
+  const clearMealHistory = async () => {
+    await AsyncStorage.removeItem("appetiteRecords");
+    setMealHistory([]);
+  };
 
   const updateHungerLevel = (level) => {
     const newRecord = {
@@ -38,7 +59,10 @@ export const AppetiteProvider = ({ children }) => {
   };
 
   return (
-    <AppetiteContext.Provider value={{ hungerLevel, updateHungerLevel, mealHistory, setMealHistory, getMealHistory }}>
+    <AppetiteContext.Provider value={{
+      hungerLevel, updateHungerLevel,
+      mealHistory, setMealHistory, getMealHistory,
+      theme, toggleTheme, clearMealHistory  }}>
       {children}
     </AppetiteContext.Provider>
   );

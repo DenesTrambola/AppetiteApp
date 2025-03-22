@@ -5,6 +5,8 @@ export const homeStyles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  lightBg: {
     backgroundColor: "#F5F5F5",
   },
   title: {
